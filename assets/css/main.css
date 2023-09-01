@@ -106,6 +106,7 @@ span {
 
 .service > div:hover {
     box-shadow: white 2px 2px 4px;
+    transform: translate(0,-10px);
     
 }
 
@@ -126,9 +127,12 @@ span {
     max-width: 100px;
 }
 
+.service img:nth-child(3) {
+    transform: translate(-50%, -130%);
+}
 
 #mouse-scroll {
-style: block;
+    style: block;
 }
 #mouse-scroll {
 position: fixed;
