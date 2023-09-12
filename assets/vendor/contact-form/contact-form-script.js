@@ -12,17 +12,27 @@ $("#contactForm").validator().on("submit", function (event) {
 
 
 function submitForm(){
+    
     // Initiate Variables With Form Content
     var name = $("#name").val();
     var email = $("#email").val();
     var msg_subject = $("#msg_subject").val();
     var message = $("#message").val();
-
-
+    console.log('😀😀😀😀😀😀', name, email);
+    
     $.ajax({
         type: "POST",
-        url: "assets/php/form-process.php",
-        data: "name=" + name + "&email=" + email + "&msg_subject=" + msg_subject + "&message=" + message,
+        url: "http://localhost:8000/sendmail",
+        timeout : 0,
+        headers : {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        data: {
+            "name": name,
+            "email": email,
+            "subject": msg_subject,
+            "message": message
+          },
         success : function(text){
             if (text == "success"){
                 formSuccess();
@@ -31,8 +41,29 @@ function submitForm(){
                 submitMSG(false,text);
             }
         }
-    });
+    }).done((response)=>{console.log('successful!', response)});
 }
+
+// function submitForm() {
+//     var settings = {
+//         "url": "http://localhost:8000/sendmail",
+//         "method": "POST",
+//         "timeout": 0,
+//         "headers": {
+//           "Content-Type": "application/x-www-form-urlencoded"
+//         },
+//         "data": {
+//           "name": "mun",
+//           "email": "maleasdfafa",
+//           "subject": "sfasdfa",
+//           "message": "feiaeijowaf"
+//         }
+//       };
+      
+//       $.ajax(settings).done(function (response) {
+//         console.log(response);
+//       });
+// }
 
 function formSuccess(){
     $("#contactForm")[0].reset();
